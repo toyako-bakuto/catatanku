@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login · Catatan Harian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="login-page">
+    <div class="login-card">
+      <h2 class="login-title">Welcome back</h2>
+      <p class="login-subtitle">Masuk untuk melanjutkan</p>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-input" type="email" id="email" name="email"
+                 placeholder="nama@contoh.com" autocomplete="email" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input class="form-input" type="password" id="password" name="password"
+                 placeholder="••••••••" autocomplete="current-password" required>
+        </div>
+
+        <div class="form-actions">
+          <label class="checkbox-label">
+            <input type="checkbox" name="remember" id="remember">
+            Ingat saya
+          </label>
+          <a href="#" class="forgot-link" title="Segera hadir">Lupa password?</a>
+        </div>
+
+        <button type="submit" class="btn-primary">Masuk</button>
+
+        <div class="login-footer">
+          Belum punya akun? <a href="#" title="Segera hadir">Daftar sekarang</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="notification-container"></div>
+  <script type="module" src="js/login.js"></script>
+</body>
+</html>

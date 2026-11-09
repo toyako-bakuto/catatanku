@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard · Catatan Harian Singkat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- User Info -->
+<div class="user-info">
+    <div class="user-avatar">?</div>
+    <div class="user-details">
+        <div class="username">Memuat…</div>
+        <div class="user-email"></div>
+    </div>
+    <button class="logout-btn" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+</div>
+
+<div class="container">
+    <header>
+        <div class="header-content">
+            <h1><i class="fas fa-book"></i> Catatan Harian Singkat</h1>
+            <p>1 hari, 1 kalimat. Koleksi pikiran, ide, dan pengingat pribadi.</p>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="number">0</div>
+                    <div class="label">Total Catatan</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">0</div>
+                    <div class="label">Sub-Notes</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">0</div>
+                    <div class="label">Bulan Ini</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <!-- Add Note -->
+        <section class="add-note-section">
+            <div class="section-header">
+                <h2><i class="fas fa-plus-circle"></i> Tambah Catatan Baru</h2>
+                <button class="section-toggle-btn" type="button">
+                    <i class="fas fa-window-minimize"></i>
+                    <span>Minimalkan</span>
+                </button>
+            </div>
+            <form class="note-form" novalidate>
+                <div class="form-group">
+                    <label for="note-content">Kalimat Singkat Hari Ini</label>
+                    <textarea id="note-content" class="note-input"
+                              placeholder="Tulis kalimat singkat yang hanya Anda yang mengerti..."></textarea>
+                    <div class="char-counter"><span>0</span>/100000 karakter</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="subnote-content">Sub-Note (Opsional)</label>
+                    <textarea id="subnote-content" class="subnote-textarea"
+                              placeholder="Tulis detail tambahan (opsional)..."></textarea>
+                    <div class="char-counter"><span>0</span>/500 karakter</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="note-date">Tanggal</label>
+                        <input type="date" id="note-date">
+                    </div>
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <label for="note-category" style="margin: 0;">Kategori</label>
+                            <button type="button" class="add-category-btn">
+                                <i class="fas fa-plus-circle"></i> Buat Baru
+                            </button>
+                        </div>
+                        <select id="note-category">
+                            <option value="">-- Pilih Kategori --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-save"></i> Simpan Catatan
+                </button>
+            </form>
+        </section>
+
+        <!-- Notes List -->
+        <section class="notes-section">
+            <div class="section-header">
+                <h2><i class="fas fa-list"></i> Daftar Catatan</h2>
+                <button class="section-toggle-btn" type="button">
+                    <i class="fas fa-window-minimize"></i>
+                    <span>Minimalkan</span>
+                </button>
+            </div>
+
+            <div class="controls-row">
+                <div class="filter-controls">
+                    <button type="button" class="filter-btn active" data-category="all">Semua</button>
+                </div>
+                <div class="sort-controls">
+                    <select>
+                        <option value="desc">Terbaru ke Terlama</option>
+                        <option value="asc">Terlama ke Terbaru</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="notes-list"></div>
+
+            <div class="pagination-controls">
+                <div class="page-numbers"></div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-logo"><i class="fas fa-book"></i> Catatan Harianku</div>
+        <p>Pikiran, cerita, dan momen berharga tersimpan aman di database pribadi.</p>
+        <p style="margin-top: 10px; font-size: 0.8rem;">© 2025 - Catatan Digital</p>
+    </footer>
+</div>
+
+<!-- Satu container notifikasi saja -->
+<div id="notification-container"></div>
+
+<!-- Modal kategori -->
+<div class="modal" hidden>
+    <div class="modal-content">
+        <h3 style="margin-bottom: 20px; color: var(--color-primary);">
+            <i class="fas fa-tag"></i> Buat Kategori Baru
+        </h3>
+        <form novalidate>
+            <div class="form-group" style="margin-bottom: var(--space-5);">
+                <label for="category_name">Nama Kategori</label>
+                <input type="text" id="category_name" name="category_name"
+                       placeholder="Masukkan nama kategori">
+            </div>
+
+            <div class="form-group" style="margin-bottom: var(--space-5);">
+                <label for="category_color">Warna Kategori</label>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="color" id="category_color" value="#3498db"
+                           style="width: 50px; height: 50px; padding: 4px;
+                                  border: 1px solid var(--color-border);
+                                  border-radius: var(--radius-sm);
+                                  background: var(--color-surface);">
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                    <span class="color-preset" style="background-color: #3498db;"></span>
+                    <span class="color-preset" style="background-color: #2ecc71;"></span>
+                    <span class="color-preset" style="background-color: #e74c3c;"></span>
+                    <span class="color-preset" style="background-color: #9b59b6;"></span>
+                    <span class="color-preset" style="background-color: #f39c12;"></span>
+                    <span class="color-preset" style="background-color: #1abc9c;"></span>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 25px;">
+                <button type="submit" class="submit-btn" style="flex: 1;">
+                    <i class="fas fa-save"></i> Simpan Kategori
+                </button>
+                <button type="button" class="cancel-category-btn"
+                        style="flex: 1; background-color: var(--gray-100);
+                               color: var(--color-text-muted);
+                               border: 1px solid var(--color-border);
+                               padding: var(--space-3);
+                               border-radius: var(--radius-md); cursor: pointer;">
+                    Batal
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
