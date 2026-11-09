@@ -16,18 +16,15 @@ async function apiFetch(endpoint, options = {}) {
         }
     });
 
-    let result;
-    try {
-        result = await response.json();
-    } catch {
-        throw new Error("Respons server bukan JSON yang valid.");
-    }
+    console.log("API Request:", endpoint);
+    console.log("HTTP Status:", response.status);
+    console.log("Response:", result);
 
     if (!response.ok || result.success === false) {
-        throw new Error(result.message || "Terjadi kesalahan pada server.");
+        throw new Error(
+            result.message || "Terjadi kesalahan pada server."
+        );
     }
-
-    return result;
 }
 
 export const authAPI = {
