@@ -1,4 +1,4 @@
-const API_BASE = "../catatanku/api";
+const API_BASE = "../api";
 
 /*
  * FIX: Spread `options` dulu, lalu headers di-merge eksplisit,
